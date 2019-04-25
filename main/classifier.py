@@ -1,4 +1,5 @@
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 
 #A file that contains functions for each classifier that we will implement
 
@@ -8,8 +9,16 @@ from sklearn.neighbors import KNeighborsClassifier
 #@input label_train - The labels of the data set
 #@input feature_test - The processed test set
 #@return The prediction
+
+
 def kNeighbours(n_neighbors, feature_train, label_train, feature_test):
     classifier = KNeighborsClassifier(n_neighbors)
     classifier.fit(feature_train, label_train)
     label_prediction = classifier.predict(feature_test)
     return label_prediction
+
+def naiveBayes(dataset):
+    model = GaussianNB()
+    model.fit(dataset.data, dataset.target)
+    predicted = model.predict(dataset.data)
+    return predicted
