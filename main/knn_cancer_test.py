@@ -1,14 +1,9 @@
 import sys
 
-from main.normalizer import normalizeStandardScale
-from main.data_handler import read_data, trainTestSplit, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
+from main.data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
     addNominalMissingValueMode
 from main.classifier import kNeighbours, naiveBayes, decisionTree
 from main.evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
-from sklearn.model_selection import StratifiedKFold
-from sklearn.svm import SVR
-from sklearn.model_selection import train_test_split
-import numpy as np
 
 
 # A basic example of how a test case should look like
@@ -28,7 +23,7 @@ def getPredictionData(type, X_train, X_test, Y_train, Y_test):
     if (type == "NaiveBayes"):
         label_prediction = naiveBayes(X_train,Y_train, X_test)
     elif (type == "kNeighbours"):
-        label_prediction = kNeighbours(3, X_train, Y_train, X_test)
+        label_prediction = kNeighbours(5, X_train, Y_train, X_test)
     else:
         label_prediction = decisionTree(X_train,Y_train, X_test)
 
@@ -45,12 +40,21 @@ def main():
     """
 
     print("-----------------------NaiveBayes-----------------------------------------")
-    x_train, x_test, y_train, y_test = trainTestSplit(train_url_cancer, 1)
+    X,Y = getFeatureLabelData(train_url_amazon, -1)
+    #If we want to test scaled data uncomment X_values and replace x.values with x_values
+    X_values = minMaxScailing(X)
+
+    x_train, x_test, y_train, y_test = trainTestSplit(X_values, Y)
+
+    #if we want to normalize data remove next comment
+    #x_train, x_test = normalizeData(x_train, x_test)
     getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
     print("----------------------------kNeighbours------------------------------------------")
     getPredictionData("kNeighbours", x_train, x_test, y_train, y_test)
     print("----------------------------decisionTree------------------------------------------")
     getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
+
+
     # Loading the training and testing dataset, as well as removing not abundant values (might have to perform some missing values check, and maybe add/remove values based on that)
     # A good way to check for missing values, is to print dataset.info().
     # Moreover you can use the plotMissingValuesHistogram which will generate a histogram with the percentage of missing features

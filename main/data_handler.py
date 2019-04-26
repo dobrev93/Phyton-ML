@@ -1,4 +1,5 @@
 #import numpy as np
+from main.normalizer import normalizeStandardScale
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -66,19 +67,24 @@ def addNominalMissingValueMode(datasetFeature):
     #to be implemented
     return -1
 
-def trainTestSplit(train_url, classColumn, minmaxScaling = False):
+def getFeatureLabelData(train_url,classColumn ):
     dataset = read_data(train_url)
-
     X = dataset.drop(dataset.columns[[0, classColumn]], axis=1)
     Y = dataset.iloc[:, classColumn].values
+    return X,Y
 
+def minMaxScailing(X):
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    X = scaler.fit_transform(X)
+    return X
 
-    #If minmaxScaling true do scaling of numeric data only form 0 to 1
-    if(minmaxScaling):
-        scaler = MinMaxScaler(feature_range=(0, 1))
-        X = scaler.fit_transform(X)
-    else:
-        X = X.values
+def normalizeData(X_train, X_test):
+    normalized_data = normalizeStandardScale(X_train, X_test)
+    normalized_training_data = normalized_data[0]
+    normalized_test_data = normalized_data[1]
+    return normalized_training_data, normalized_test_data
+
+def trainTestSplit(X, Y):
 
     cv = StratifiedKFold(n_splits=10)
     for train_index, test_index in cv.split(X, Y):
