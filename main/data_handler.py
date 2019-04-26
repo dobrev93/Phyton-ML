@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.model_selection import StratifiedKFold
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
 import csv
 import numpy as np
 
@@ -92,7 +92,6 @@ def normalizeData(X_train, X_test):
     return normalized_training_data, normalized_test_data
 
 def trainTestSplit(X, Y):
-
     cv = StratifiedKFold(n_splits=10)
     for train_index, test_index in cv.split(X, Y):
         X_train, X_test, y_train, y_test = X[train_index], X[test_index], Y[train_index], Y[test_index]
@@ -100,12 +99,21 @@ def trainTestSplit(X, Y):
     return X_train, X_test, y_train, y_test
 
 
+def featureEncoding(datasetFeature):
+    le = LabelEncoder()
+    dataset_encoded = le.fit_transform(datasetFeature)
+    return dataset_encoded
+
+#Need to look into it, not sure how exactly works
+def featureOneHotEncoding(datasetFeature):
+    ohe = OneHotEncoder()
+    dataset_encoded = ohe.fit_transform(datasetFeature)
+    return dataset_encoded
 
 def writeToCsv(filename, IDs, label_prediction):
-
+    zippedVal = zip(IDs, label_prediction)
     with open(filename, 'w') as csvfile:
         filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         filewriter.writerow(['ID', 'class'])
-        for id in IDs:
-            index = np.where(IDs==id)
-            filewriter.writerow([id , label_prediction[index[0][0]]])
+        for element in zippedVal:
+            filewriter.writerow([element[0] , element[1]])

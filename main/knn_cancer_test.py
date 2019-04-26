@@ -1,7 +1,7 @@
 import sys
 
 from data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
-    addNominalMissingValueMode, writeToCsv, getRowIDs
+    addNominalMissingValueMode, writeToCsv, getRowIDs, featureEncoding, featureOneHotEncoding
 from classifier import getPredictionData
 from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
 
@@ -14,6 +14,9 @@ test_label_url_cancer = '../data/184702-tu-ml-ss-19-breast-cancer/breast-cancer-
 train_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.lrn.csv'
 test_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.tes.csv'
 test_label_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.sol.ex.csv'
+
+
+train_url_image_segmentation = "../data/Image_Segmentation_Data/segmentation.data"
 
 
 
@@ -29,6 +32,7 @@ def main():
     #X_values = minMaxScailing(X)
 
     x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
+
 
     #if we want to normalize data remove next comment
     x_train, x_test = normalizeData(x_train, x_test)
@@ -49,6 +53,16 @@ def main():
     print(classification_report_results(y_test, dt_label_prediction))
     print(classification_accuracy_score(y_test, dt_label_prediction))
 
+
+    test_labeling = ['Sunny', 'Cloudy', 'Sunny', 'Hot', 'Sunny', 'Stormy']
+    print("-----------------------Feature Encoding-----------------------------------------")
+    print(featureEncoding(test_labeling))
+
+
+    #print(dt_label_prediction)
+    #print(len(dt_label_prediction))
+    #IDs = getRowIDs(train_url_cancer, 0, len(dt_label_prediction))
+    #print(IDs)
     #writeToCsv("test.csv", IDs, dt_label_prediction)
 
 
