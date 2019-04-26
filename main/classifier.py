@@ -1,6 +1,6 @@
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
-
+from sklearn.tree import DecisionTreeClassifier
 #A file that contains functions for each classifier that we will implement
 
 #The function kNeighbours implements the KNN classifier
@@ -18,10 +18,13 @@ def kNeighbours(n_neighbors, feature_train, label_train, feature_test):
     return label_prediction
 
 def naiveBayes(feature_train, label_train, feature_test):
-    model = GaussianNB()
-    model.fit(feature_train, label_train)
-    predicted = model.predict(feature_test)
+    classifier = GaussianNB()
+    classifier.fit(feature_train, label_train)
+    predicted = classifier.predict(feature_test)
     return predicted
 
-def decisionTree():
-    return
+def decisionTree(feature_train, label_train, feature_test):
+    classifier = DecisionTreeClassifier()
+    classifier.fit(feature_train, label_train)
+    predicted = classifier.predict(feature_test)
+    return predicted

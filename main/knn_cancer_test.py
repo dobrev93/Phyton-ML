@@ -30,11 +30,11 @@ def getPredictionData(type, X_train, X_test, Y_train, Y_test):
     elif (type == "kNeighbours"):
         label_prediction = kNeighbours(3, X_train, Y_train, X_test)
     else:
-        label_prediction = None
+        label_prediction = decisionTree(X_train,Y_train, X_test)
 
-    print(label_prediction)
-    print(confusion_matrix_results(Y_test, label_prediction))
-    print(classification_report_results(Y_test, label_prediction))
+    #print(label_prediction)
+    #print(confusion_matrix_results(Y_test, label_prediction))
+    #print(classification_report_results(Y_test, label_prediction))
     print(classification_accuracy_score(Y_test, label_prediction))
 
 
@@ -44,10 +44,13 @@ def main():
     :return:
     """
 
-    print("--------------------------------------------------------------------------------")
-    x_train, x_test, y_train, y_test = trainTestSplit(train_url_amazon, -1)
+    print("-----------------------NaiveBayes-----------------------------------------")
+    x_train, x_test, y_train, y_test = trainTestSplit(train_url_cancer, 1)
     getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
-    print("--------------------------------------------------------------------------------")
+    print("----------------------------kNeighbours------------------------------------------")
+    getPredictionData("kNeighbours", x_train, x_test, y_train, y_test)
+    print("----------------------------decisionTree------------------------------------------")
+    getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
     # Loading the training and testing dataset, as well as removing not abundant values (might have to perform some missing values check, and maybe add/remove values based on that)
     # A good way to check for missing values, is to print dataset.info().
     # Moreover you can use the plotMissingValuesHistogram which will generate a histogram with the percentage of missing features
