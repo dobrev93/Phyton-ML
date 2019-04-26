@@ -1,12 +1,13 @@
 #import numpy as np
-from normalizer import normalizeStandardScale
-
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler
+import csv
+import numpy as np
 
+from normalizer import normalizeStandardScale
 #A file that deals with data loading and pre-processing
 
 
@@ -73,6 +74,12 @@ def getFeatureLabelData(train_url,classColumn ):
     Y = dataset.iloc[:, classColumn].values
     return X,Y
 
+def getRowIDs(data_url, IDcolumn):
+    dataset = read_data(data_url)
+    IDs = dataset.iloc[:, IDcolumn].values
+    return IDs
+
+
 def minMaxScailing(X):
     scaler = MinMaxScaler(feature_range=(0, 1))
     X = scaler.fit_transform(X)
@@ -91,3 +98,14 @@ def trainTestSplit(X, Y):
         X_train, X_test, y_train, y_test = X[train_index], X[test_index], Y[train_index], Y[test_index]
 
     return X_train, X_test, y_train, y_test
+
+
+
+def writeToCsv(filename, IDs, label_prediction):
+
+    with open(filename, 'w') as csvfile:
+        filewriter = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+        filewriter.writerow(['ID', 'class'])
+        for id in IDs:
+            index = np.where(IDs==id)
+            filewriter.writerow([id , label_prediction[index[0][0]]])

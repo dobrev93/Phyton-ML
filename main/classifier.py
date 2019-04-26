@@ -9,8 +9,6 @@ from sklearn.tree import DecisionTreeClassifier
 #@input label_train - The labels of the data set
 #@input feature_test - The processed test set
 #@return The prediction
-
-
 def kNeighbours(n_neighbors, feature_train, label_train, feature_test):
     classifier = KNeighborsClassifier(n_neighbors)
     classifier.fit(feature_train, label_train)
@@ -28,3 +26,14 @@ def decisionTree(feature_train, label_train, feature_test):
     classifier.fit(feature_train, label_train)
     predicted = classifier.predict(feature_test)
     return predicted
+
+
+def getPredictionData(type, X_train, X_test, Y_train, Y_test, N_NEIGHBORS=3):
+    if (type == "NaiveBayes"):
+        label_prediction = naiveBayes(X_train,Y_train, X_test)
+    elif (type == "kNeighbours"):
+        label_prediction = kNeighbours(N_NEIGHBORS, X_train, Y_train, X_test)
+    else:
+        label_prediction = decisionTree(X_train,Y_train, X_test)
+    
+    return label_prediction

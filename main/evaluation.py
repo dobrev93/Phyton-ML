@@ -21,3 +21,6 @@ def classification_accuracy_score(test_labels, predicted_labels):
 ##TO BE IMPLEMENTED
 # Other manners of result evaluation
 # A way to generate/store graphs that we can create from different evaluations
+
+def storeEvaluationResults(evaluationData):
+    return -1

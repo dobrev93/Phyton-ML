@@ -1,8 +1,8 @@
 import sys
 
 from data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
-    addNominalMissingValueMode
-from classifier import kNeighbours, naiveBayes, decisionTree
+    addNominalMissingValueMode, writeToCsv, getRowIDs
+from classifier import getPredictionData
 from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
 
 
@@ -18,41 +18,38 @@ test_label_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.sol.ex
 
 
 
-def getPredictionData(type, X_train, X_test, Y_train, Y_test):
-
-    if (type == "NaiveBayes"):
-        label_prediction = naiveBayes(X_train,Y_train, X_test)
-    elif (type == "kNeighbours"):
-        label_prediction = kNeighbours(5, X_train, Y_train, X_test)
-    else:
-        label_prediction = decisionTree(X_train,Y_train, X_test)
-
-    #print(label_prediction)
-    #print(confusion_matrix_results(Y_test, label_prediction))
-    #print(classification_report_results(Y_test, label_prediction))
-    print(classification_accuracy_score(Y_test, label_prediction))
-
-
 def main():
     """
     Main function.
     :return:
     """
 
-    print("-----------------------NaiveBayes-----------------------------------------")
-    X,Y = getFeatureLabelData(train_url_amazon, -1)
+    X,Y = getFeatureLabelData(train_url_cancer, 1)
     #If we want to test scaled data uncomment X_values and replace x.values with x_values
-    X_values = minMaxScailing(X)
+    #X_values = minMaxScailing(X)
 
-    x_train, x_test, y_train, y_test = trainTestSplit(X_values, Y)
+    x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
 
     #if we want to normalize data remove next comment
-    #x_train, x_test = normalizeData(x_train, x_test)
-    getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
+    x_train, x_test = normalizeData(x_train, x_test)
+
+    print("-----------------------NaiveBayes-----------------------------------------")
+    nb_label_prediction = getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
+    print(confusion_matrix_results(y_test, nb_label_prediction))
+    print(classification_report_results(y_test, nb_label_prediction))
+    print(classification_accuracy_score(y_test, nb_label_prediction))
     print("----------------------------kNeighbours------------------------------------------")
-    getPredictionData("kNeighbours", x_train, x_test, y_train, y_test)
+    kn_label_prediction = getPredictionData("kNeighbours", x_train, x_test, y_train, y_test, 5)
+    print(confusion_matrix_results(y_test, kn_label_prediction))
+    print(classification_report_results(y_test, kn_label_prediction))
+    print(classification_accuracy_score(y_test, kn_label_prediction))
     print("----------------------------decisionTree------------------------------------------")
-    getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
+    dt_label_prediction = getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
+    temp = confusion_matrix_results(y_test, dt_label_prediction)
+    print(classification_report_results(y_test, dt_label_prediction))
+    print(classification_accuracy_score(y_test, dt_label_prediction))
+
+    #writeToCsv("test.csv", IDs, dt_label_prediction)
 
 
     # Loading the training and testing dataset, as well as removing not abundant values (might have to perform some missing values check, and maybe add/remove values based on that)
