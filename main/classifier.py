@@ -17,8 +17,11 @@ def kNeighbours(n_neighbors, feature_train, label_train, feature_test):
     label_prediction = classifier.predict(feature_test)
     return label_prediction
 
-def naiveBayes(dataset):
+def naiveBayes(feature_train, label_train, feature_test):
     model = GaussianNB()
-    model.fit(dataset.data, dataset.target)
-    predicted = model.predict(dataset.data)
+    model.fit(feature_train, label_train)
+    predicted = model.predict(feature_test)
     return predicted
+
+def decisionTree():
+    return

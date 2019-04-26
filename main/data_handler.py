@@ -3,6 +3,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from sklearn.model_selection import StratifiedKFold
+from sklearn.preprocessing import MinMaxScaler
 
 #A file that deals with data loading and pre-processing
 
@@ -63,3 +65,23 @@ def addNumericalMissingValueMean(datasetFeature):
 def addNominalMissingValueMode(datasetFeature):
     #to be implemented
     return -1
+
+def trainTestSplit(train_url, classColumn, minmaxScaling = False):
+    dataset = read_data(train_url)
+
+    X = dataset.drop(dataset.columns[[0, classColumn]], axis=1)
+    Y = dataset.iloc[:, classColumn].values
+
+
+    #If minmaxScaling true do scaling of numeric data only form 0 to 1
+    if(minmaxScaling):
+        scaler = MinMaxScaler(feature_range=(0, 1))
+        X = scaler.fit_transform(X)
+    else:
+        X = X.values
+
+    cv = StratifiedKFold(n_splits=10)
+    for train_index, test_index in cv.split(X, Y):
+        X_train, X_test, y_train, y_test = X[train_index], X[test_index], Y[train_index], Y[test_index]
+
+    return X_train, X_test, y_train, y_test

@@ -1,4 +1,4 @@
-from sklearn.metrics import classification_report, confusion_matrix  
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 #A file that contains all the functions that evalaute the predictions of a particular classifier
 
@@ -15,6 +15,8 @@ def confusion_matrix_results(test_labels, predicted_labels):
 def classification_report_results(test_labels, predicted_labels):
     return classification_report(test_labels, predicted_labels)
 
+def classification_accuracy_score(test_labels, predicted_labels):
+    return accuracy_score(test_labels, predicted_labels)
 
 ##TO BE IMPLEMENTED
 # Other manners of result evaluation
