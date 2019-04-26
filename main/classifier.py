@@ -28,12 +28,38 @@ def decisionTree(feature_train, label_train, feature_test):
     return predicted
 
 
+#********************************************************************************************
+
+#Play around with features such as:
+#max_features
+#max_depth
+#min_samples_split
+#min_samples_leaf
+#max_leaf_nodes
+#min_impurity_split
+#random_state
+
+def decisionTreeGini(feature_train, label_train, feature_test, criterion = "gini"):
+    classifier = DecisionTreeClassifier(criterion) 
+    classifier.fit(feature_train, label_train)
+    predicted = classifier.predict(feature_test)
+    return predicted
+    
+
+def decisionTreeEntropy(feature_train, label_train, feature_test, criterion = "entropy"):
+    classifier = DecisionTreeClassifier(criterion) 
+    classifier.fit(feature_train, label_train)
+    predicted = classifier.predict(feature_test)
+    return predicted
+
+#********************************************************************************************
+
 def getPredictionData(type, X_train, X_test, Y_train, Y_test, N_NEIGHBORS=3):
     if (type == "NaiveBayes"):
         label_prediction = naiveBayes(X_train,Y_train, X_test)
     elif (type == "kNeighbours"):
         label_prediction = kNeighbours(N_NEIGHBORS, X_train, Y_train, X_test)
     else:
-        label_prediction = decisionTree(X_train,Y_train, X_test)
+        label_prediction = decisionTreeEntropy(X_train,Y_train, X_test)
     
     return label_prediction
