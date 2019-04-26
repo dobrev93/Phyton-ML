@@ -1,9 +1,9 @@
 import sys
 
-from main.data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
+from data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
     addNominalMissingValueMode
-from main.classifier import kNeighbours, naiveBayes, decisionTree
-from main.evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
+from classifier import kNeighbours, naiveBayes, decisionTree
+from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
 
 
 # A basic example of how a test case should look like

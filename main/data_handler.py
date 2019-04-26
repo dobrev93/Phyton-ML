@@ -1,5 +1,5 @@
 #import numpy as np
-from main.normalizer import normalizeStandardScale
+from normalizer import normalizeStandardScale
 
 import matplotlib.pyplot as plt
 import pandas as pd
