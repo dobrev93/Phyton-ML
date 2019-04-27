@@ -1,7 +1,7 @@
 import sys
 
 from data_handler import combinedSampling, underSampling, overSampling, read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
-    addNominalMissingValueMode, writeToCsv, getRowIDs, featureEncoding, featureOneHotEncoding
+    addNominalMissingValueMode, writeToCsv, getRowIDs, featureEncoding, featureOneHotEncoding, selectKBest, selectRandomForests
 from classifier import getPredictionData
 from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
 
@@ -28,7 +28,7 @@ def main():
     :return:
     """
 
-    X,Y = getFeatureLabelData(train_url_amazon, -1)
+    X,Y = getFeatureLabelData(train_url_cancer, 1)
     #If we want to test scaled data uncomment X_values and replace x.values with x_values
     #X_values = minMaxScailing(X)
 
@@ -36,10 +36,17 @@ def main():
     x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
 
     #x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
-
+    
 
     #if we want to normalize data remove next comment
-    x_train, x_test = normalizeData(x_train, x_test)
+    x_train = minMaxScailing(x_train)
+    x_test = minMaxScailing(x_test)
+
+    print("-----------------------Feature Selection-----------------------------------------")
+    print(x_test)
+    x_train, x_test = selectRandomForests(x_train, y_train, x_test, y_test)
+    print("-----------------------After Selection-----------------------------------------")
+    print(x_test)
 
     print("-----------------------NaiveBayes-----------------------------------------")
     nb_label_prediction = getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
@@ -56,11 +63,6 @@ def main():
     temp = confusion_matrix_results(y_test, dt_label_prediction)
     print(classification_report_results(y_test, dt_label_prediction))
     print(classification_accuracy_score(y_test, dt_label_prediction))
-
-
-    test_labeling = ['Sunny', 'Cloudy', 'Sunny', 'Hot', 'Sunny', 'Stormy']
-    print("-----------------------Feature Encoding-----------------------------------------")
-    print(featureEncoding(test_labeling))
 
 
     #print(dt_label_prediction)

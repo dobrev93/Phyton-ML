@@ -2,9 +2,11 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import csv
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
-import csv
+from sklearn.feature_selection import SelectKBest, chi2, SelectFromModel
+from sklearn.ensemble import RandomForestClassifier
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import NearMiss
 from imblearn.combine import SMOTETomek
@@ -136,3 +138,18 @@ def combinedSampling(X, Y):
     smote_tomek = SMOTETomek(random_state=0)
     X_resampled, y_resampled = smote_tomek.fit_resample(X, Y)
     return X_resampled, y_resampled
+
+
+def selectKBest(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
+    bestfeatures = SelectKBest(score_func=chi2, k=10)
+    x_train = bestfeatures.fit_transform(x_train_ds,y_train_ds)
+    x_test = bestfeatures.fit_transform(x_test_ds,y_test_ds)
+    return x_train, x_test
+
+def selectRandomForests(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
+    x_train = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=10)
+    x_train = x_train.fit_transform(x_train_ds, y_train_ds)
+    x_test = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=10)
+    x_test = x_test.fit_transform(x_test_ds, y_test_ds)
+    return x_train, x_test
+

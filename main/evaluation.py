@@ -8,7 +8,6 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 def confusion_matrix_results(test_labels, predicted_labels):
     return confusion_matrix(test_labels, predicted_labels)
 
-
 #A function that creates a classification report given the test labels and the predicted lables
 #@iput test_labels - An array of the actual labels of the data set
 #@input predicted_labels - An array of the predicted labels for the data set
