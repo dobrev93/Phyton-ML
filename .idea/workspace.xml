@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="603283d0-a5ef-4928-8239-929202895665" name="Default Changelist" comment="">
+<<<<<<< Updated upstream
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/main/knn_cancer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/knn_cancer_test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,7 +18,11 @@
     <SUITE FILE_PATH="coverage/ml_exercise_1$classifier.coverage" NAME="classifier Coverage Results" MODIFIED="1556283528789" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
     <SUITE FILE_PATH="coverage/ml_exercise_1$data_handler.coverage" NAME="data_handler Coverage Results" MODIFIED="1556283911773" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
     <SUITE FILE_PATH="coverage/ml_exercise_1$NaiveBayesTest.coverage" NAME="NaiveBayesTest Coverage Results" MODIFIED="1556195393605" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+<<<<<<< Updated upstream
     <SUITE FILE_PATH="coverage/ml_exercise_1$knn_cancer_test.coverage" NAME="knn_cancer_test Coverage Results" MODIFIED="1556366460616" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+=======
+    <SUITE FILE_PATH="coverage/ml_exercise_1$knn_cancer_test.coverage" NAME="knn_cancer_test Coverage Results" MODIFIED="1556288512706" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/main" />
+>>>>>>> Stashed changes
     <SUITE FILE_PATH="coverage/ml_exercise_1$common.coverage" NAME="common Coverage Results" MODIFIED="1556276076347" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Documents/virtualenvs/ml_exercise_1/Lib/site-packages/pandas/io" />
   </component>
   <component name="FileEditorManager">
@@ -22,8 +30,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main/classifier.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="352">
               <caret line="52" column="20" lean-forward="true" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
+=======
+            <state relative-caret-position="34">
+              <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+>>>>>>> Stashed changes
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
               </folding>
@@ -64,8 +77,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main/knn_cancer_test.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="153">
               <caret line="9" column="99" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="99" />
+=======
+            <state relative-caret-position="-68">
+              <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+>>>>>>> Stashed changes
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -94,7 +112,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/Documents/virtualenvs/ml_exercise_1/Lib/site-packages/sklearn/utils/validation.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
             <state relative-caret-position="9809">
+=======
+            <state relative-caret-position="210">
+>>>>>>> Stashed changes
               <caret line="594" column="49" selection-start-line="594" selection-start-column="49" selection-end-line="594" selection-end-column="49" />
             </state>
           </provider>
@@ -324,13 +346,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556179638008</updated>
+<<<<<<< Updated upstream
       <workItem from="1556179644981" duration="32068000" />
       <workItem from="1556365852251" duration="819000" />
+=======
+      <workItem from="1556179644981" duration="33944000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< Updated upstream
     <option name="totallyTimeSpent" value="32887000" />
+=======
+    <option name="totallyTimeSpent" value="33944000" />
+>>>>>>> Stashed changes
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -420,6 +450,16 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
+=======
+    <entry file="file://$USER_HOME$/Documents/virtualenvs/ml_exercise_1/Lib/site-packages/sklearn/utils/validation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="594" column="49" selection-start-line="594" selection-start-column="49" selection-end-line="594" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> Stashed changes
     <entry file="file://$USER_HOME$/Documents/virtualenvs/ml_exercise_1/Lib/site-packages/pandas/io/common.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1666">
@@ -434,6 +474,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$USER_HOME$/Documents/virtualenvs/ml_exercise_1/Lib/site-packages/sklearn/utils/validation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9809">
@@ -444,6 +485,8 @@
     <entry file="file://$PROJECT_DIR$/main/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+=======
+>>>>>>> Stashed changes
     <entry file="file://$PROJECT_DIR$/main/normalizer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -471,10 +514,25 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main/classifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="47" selection-start-line="2" selection-start-column="47" selection-end-line="2" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#50#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main/knn_cancer_test.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< Updated upstream
         <state relative-caret-position="153">
           <caret line="9" column="99" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="99" />
+=======
+        <state relative-caret-position="-68">
+          <caret line="25" column="41" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+>>>>>>> Stashed changes
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

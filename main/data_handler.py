@@ -5,6 +5,10 @@ import seaborn as sns
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
 import csv
+from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import NearMiss
+from imblearn.combine import SMOTETomek
+
 import numpy as np
 
 from normalizer import normalizeStandardScale
@@ -92,7 +96,7 @@ def normalizeData(X_train, X_test):
     return normalized_training_data, normalized_test_data
 
 def trainTestSplit(X, Y):
-    cv = StratifiedKFold(n_splits=10)
+    cv = StratifiedKFold(n_splits=4)
     for train_index, test_index in cv.split(X, Y):
         X_train, X_test, y_train, y_test = X[train_index], X[test_index], Y[train_index], Y[test_index]
 
@@ -117,3 +121,18 @@ def writeToCsv(filename, IDs, label_prediction):
         filewriter.writerow(['ID', 'class'])
         for element in zippedVal:
             filewriter.writerow([element[0] , element[1]])
+
+def overSampling(X, Y):
+    smote = SMOTE()
+    X_resampled, y_resampled = smote.fit_resample(X, Y)
+    return X_resampled, y_resampled
+
+def underSampling(X, Y):
+    nm1 = NearMiss(version=1)
+    X_resampled, y_resampled = nm1.fit_resample(X, Y)
+    return X_resampled, y_resampled
+
+def combinedSampling(X, Y):
+    smote_tomek = SMOTETomek(random_state=0)
+    X_resampled, y_resampled = smote_tomek.fit_resample(X, Y)
+    return X_resampled, y_resampled

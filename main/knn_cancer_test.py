@@ -1,6 +1,6 @@
 import sys
 
-from data_handler import read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
+from data_handler import combinedSampling, underSampling, overSampling, read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
     addNominalMissingValueMode, writeToCsv, getRowIDs, featureEncoding, featureOneHotEncoding
 from classifier import getPredictionData
 from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
@@ -21,17 +21,21 @@ train_url_image_segmentation = "../data/Image_Segmentation_Data/segmentation.dat
 
 
 
+
 def main():
     """
     Main function.
     :return:
     """
 
-    X,Y = getFeatureLabelData(train_url_cancer, 1)
+    X,Y = getFeatureLabelData(train_url_amazon, -1)
     #If we want to test scaled data uncomment X_values and replace x.values with x_values
     #X_values = minMaxScailing(X)
 
-    x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
+    X_sampled, Y_sampled = underSampling(X, Y)
+    x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
+
+    #x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
 
 
     #if we want to normalize data remove next comment
