@@ -154,17 +154,17 @@ def selectKBest(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
     x_test = bestfeatures.fit_transform(x_test_ds,y_test_ds)
     return x_train, x_test
 
-def selectRandomForests(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
-    x_train = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=10)
+def selectRandomForests(x_train_ds, y_train_ds, x_test_ds, y_test_ds, max_features):
+    x_train = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=max_features)
     x_train = x_train.fit_transform(x_train_ds, y_train_ds)
-    x_test = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=10)
+    x_test = SelectFromModel(RandomForestClassifier(n_estimators = 100), max_features=max_features)
     x_test = x_test.fit_transform(x_test_ds, y_test_ds)
     return x_train, x_test
 
-def selectDecisionTree(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
-    x_train = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=10)
+def selectDecisionTree(x_train_ds, y_train_ds, x_test_ds, y_test_ds, max_features):
+    x_train = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=max_features)
     x_train = x_train.fit_transform(x_train_ds, y_train_ds)
-    x_test = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=10)
+    x_test = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=max_features)
     x_test = x_test.fit_transform(x_test_ds, y_test_ds)
     return x_train, x_test
 
