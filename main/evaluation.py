@@ -1,4 +1,4 @@
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
 
 #A file that contains all the functions that evalaute the predictions of a particular classifier
 
@@ -16,6 +16,9 @@ def classification_report_results(test_labels, predicted_labels):
 
 def classification_accuracy_score(test_labels, predicted_labels):
     return accuracy_score(test_labels, predicted_labels)
+
+def roc_auc_score_results(test_labels, predicted_labels):
+    return roc_auc_score(test_labels, predicted_labels)
 
 ##TO BE IMPLEMENTED
 # Other manners of result evaluation

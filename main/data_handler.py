@@ -6,12 +6,14 @@ import csv
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
 from sklearn.feature_selection import SelectKBest, chi2, SelectFromModel
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import NearMiss
 from imblearn.combine import SMOTETomek
 
 import numpy as np
+
+import MultiColumnLabelEncoder
 
 from normalizer import normalizeStandardScale
 #A file that deals with data loading and pre-processing
@@ -104,17 +106,22 @@ def trainTestSplit(X, Y):
 
     return X_train, X_test, y_train, y_test
 
-
-def featureEncoding(datasetFeature):
+#Ideas for implementing the label encoder
+#Go thourgh all the columns, and if a column does not have numerical values perform label encoding
+#Look for label encoding for the dataset
+def featureEncoding(train_dataset, test_dataset, columns):
     le = LabelEncoder()
-    dataset_encoded = le.fit_transform(datasetFeature)
-    return dataset_encoded
+    for column in columns: 
+        train_dataset[:, column] = le.fit_transform(train_dataset[:, column])
+    for column in columns: 
+        test_dataset[:, column] = le.fit_transform(test_dataset[:, column])
+    return train_dataset, test_dataset
 
-#Need to look into it, not sure how exactly works
-def featureOneHotEncoding(datasetFeature):
-    ohe = OneHotEncoder()
-    dataset_encoded = ohe.fit_transform(datasetFeature)
-    return dataset_encoded
+def featureOneHotEncoding(traindataset, testdataset):
+    ohe = OneHotEncoder(categories='auto', sparse=False, handle_unknown='ignore')
+    x_train = ohe.fit_transform(traindataset)
+    x_test = ohe.fit_transform(testdataset)
+    return x_train, x_test
 
 def writeToCsv(filename, IDs, label_prediction):
     zippedVal = zip(IDs, label_prediction)
@@ -153,3 +160,9 @@ def selectRandomForests(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
     x_test = x_test.fit_transform(x_test_ds, y_test_ds)
     return x_train, x_test
 
+def selectDecisionTree(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
+    x_train = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=10)
+    x_train = x_train.fit_transform(x_train_ds, y_train_ds)
+    x_test = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=10)
+    x_test = x_test.fit_transform(x_test_ds, y_test_ds)
+    return x_train, x_test
