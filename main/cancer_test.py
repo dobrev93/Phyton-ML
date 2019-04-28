@@ -8,24 +8,34 @@ from evaluation import confusion_matrix_results, classification_report_results, 
 
 
 
-def main():
-    """
-    Main function.
-    :return:
-    """
-
+def cancer_test(samplingType, normalizeType, selectBest, kBest=10):
     print("----------------------------Preprocessing------------------------------------------")
     start_preprocessing_time = time.time()
     train_url_cancer = '../data/184702-tu-ml-ss-19-breast-cancer/breast-cancer-diagnostic.shuf.lrn.csv'
     X,Y = getFeatureLabelData(train_url_cancer, 1)
-    x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
+    if (samplingType=='over'):
+        X_sampled, Y_sampled = overSampling(X, Y)
+        x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
+    elif (samplingType=='under'):
+        X_sampled, Y_sampled = underSampling(X, Y)
+        x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
+    elif (samplingType=='combined'):
+        X_sampled, Y_sampled = combinedSampling(X, Y)
+        x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
+    else:
+        x_train, x_test, y_train, y_test = trainTestSplit(X.values, Y)
     #Pre processing to be added here, not after the preprocessing_time
-
+    if (normalizeType=='minmax'):
+        x_train = minMaxScailing(x_train)
+        x_test = minMaxScailing(x_test)
+    elif (normalizeType=='normal'):
+        x_train, x_test= normalizeData(x_train, x_test)
+    if selectBest:
+        x_train, x_test = selectKBest(x_train, y_train, x_test, y_test, kBest)
     preprocessing_time = time.time()
     print("The processing time is: " , preprocessing_time-start_preprocessing_time)
     print("----------------------------end Preprocessing------------------------------------------")
     
-
     print("----------------------------decisionTree------------------------------------------")
     start_prediction_dt_time = time.time()
     dt_label_prediction, proba = getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
@@ -60,6 +70,14 @@ def main():
     print("----------------------------End kNeighbours------------------------------------------")
 
 
+def main():
+    """
+    Main function.
+    :return:
+    """
+
+
+    cancer_test('over', 'minmax', True, 20)
 
 
 

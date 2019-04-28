@@ -148,8 +148,8 @@ def combinedSampling(X, Y):
     return X_resampled, y_resampled
 
 
-def selectKBest(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
-    bestfeatures = SelectKBest(score_func=chi2, k=10)
+def selectKBest(x_train_ds, y_train_ds, x_test_ds, y_test_ds, kBest):
+    bestfeatures = SelectKBest(score_func=chi2, k=kBest)
     x_train = bestfeatures.fit_transform(x_train_ds,y_train_ds)
     x_test = bestfeatures.fit_transform(x_test_ds,y_test_ds)
     return x_train, x_test
