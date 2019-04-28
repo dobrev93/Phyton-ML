@@ -75,9 +75,13 @@ def addNominalMissingValueMode(datasetFeature):
     #to be implemented
     return -1
 
-def getFeatureLabelData(train_url,classColumn ):
+def getFeatureLabelData(train_url,classColumn, noIDColumn = False ):
     dataset = read_data(train_url)
-    X = dataset.drop(dataset.columns[[0, classColumn]], axis=1)
+    if noIDColumn:
+        X = dataset.drop(dataset.columns[[classColumn]], axis=1)
+    else:
+        X = dataset.drop(dataset.columns[[0, classColumn]], axis=1)
+
     Y = dataset.iloc[:, classColumn].values
     return X,Y
 
