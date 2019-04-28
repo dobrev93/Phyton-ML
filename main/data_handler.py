@@ -12,9 +12,7 @@ from imblearn.under_sampling import NearMiss
 from imblearn.combine import SMOTETomek
 from sklearn.decomposition import PCA
 
-import numpy as np
 
-import MultiColumnLabelEncoder
 
 from normalizer import normalizeStandardScale
 #A file that deals with data loading and pre-processing
