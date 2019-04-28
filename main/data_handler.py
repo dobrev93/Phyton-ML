@@ -13,7 +13,6 @@ from imblearn.combine import SMOTETomek
 from sklearn.decomposition import PCA
 
 
-
 from normalizer import normalizeStandardScale
 #A file that deals with data loading and pre-processing
 
@@ -112,13 +111,11 @@ def trainTestSplit(X, Y):
 #Ideas for implementing the label encoder
 #Go thourgh all the columns, and if a column does not have numerical values perform label encoding
 #Look for label encoding for the dataset
-def featureEncoding(train_dataset, test_dataset, columns):
+def featureEncoding(train_dataset, columns):
     le = LabelEncoder()
-    for column in columns: 
+    for column in columns:
         train_dataset[:, column] = le.fit_transform(train_dataset[:, column])
-    for column in columns: 
-        test_dataset[:, column] = le.fit_transform(test_dataset[:, column])
-    return train_dataset, test_dataset
+    return train_dataset
 
 def featureOneHotEncoding(traindataset, testdataset):
     ohe = OneHotEncoder(categories='auto', sparse=False, handle_unknown='ignore')
