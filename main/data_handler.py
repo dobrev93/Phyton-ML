@@ -7,7 +7,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import MinMaxScaler, LabelEncoder, OneHotEncoder
 from sklearn.feature_selection import SelectKBest, chi2, SelectFromModel
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import SMOTE, RandomOverSampler
 from imblearn.under_sampling import NearMiss
 from imblearn.combine import SMOTETomek
 from sklearn.decomposition import PCA
@@ -132,8 +132,9 @@ def writeToCsv(filename, IDs, label_prediction):
             filewriter.writerow([element[0] , element[1]])
 
 def overSampling(X, Y):
-    smote = SMOTE()
-    X_resampled, y_resampled = smote.fit_resample(X, Y)
+    #smote = SMOTE(random_state=42)
+    s = RandomOverSampler(random_state=0)
+    X_resampled, y_resampled = s.fit_resample(X, Y)
     return X_resampled, y_resampled
 
 def underSampling(X, Y):
