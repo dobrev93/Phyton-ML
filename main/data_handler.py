@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import NearMiss
 from imblearn.combine import SMOTETomek
+from sklearn.decomposition import PCA
 
 import numpy as np
 
@@ -166,3 +167,8 @@ def selectDecisionTree(x_train_ds, y_train_ds, x_test_ds, y_test_ds):
     x_test = SelectFromModel(ExtraTreesClassifier(n_estimators = 100), max_features=10)
     x_test = x_test.fit_transform(x_test_ds, y_test_ds)
     return x_train, x_test
+
+def PCA(X):
+    pca = PCA(n_components=2)
+    pca.fit(X)
+    return pca.explained_variance_ratio_

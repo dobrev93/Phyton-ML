@@ -1,5 +1,6 @@
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, roc_auc_score
 
+
 #A file that contains all the functions that evalaute the predictions of a particular classifier
 
 #A function that creates a confusion matrix given the test labels and the predicted lables
@@ -26,3 +27,9 @@ def roc_auc_score_results(test_labels, predicted_labels):
 
 def storeEvaluationResults(evaluationData):
     return -1
+
+def classification_roc_auc_score(test_labels, predicted_labels, proba, greater_label):
+    y_true = (test_labels == predicted_labels).astype(int)
+    y_scores = proba[:,greater_label]
+    return roc_auc_score(y_true, y_scores)
+

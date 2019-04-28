@@ -3,7 +3,7 @@ import sys
 from data_handler import combinedSampling, underSampling, overSampling, read_data, getFeatureLabelData, trainTestSplit, minMaxScailing, normalizeData, plotFeatureHistogram, plotMissingValuesHistogram, addNumericalMissingValueMean, \
     addNominalMissingValueMode, writeToCsv, getRowIDs, featureEncoding, featureOneHotEncoding, selectKBest, selectRandomForests
 from classifier import getPredictionData
-from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score
+from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score, classification_roc_auc_score
 
 
 # A basic example of how a test case should look like
@@ -49,21 +49,23 @@ def main():
     print(x_test)
 
     print("-----------------------NaiveBayes-----------------------------------------")
-    nb_label_prediction = getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
+    nb_label_prediction, proba = getPredictionData("NaiveBayes", x_train, x_test, y_train, y_test)
     print(confusion_matrix_results(y_test, nb_label_prediction))
     print(classification_report_results(y_test, nb_label_prediction))
     print(classification_accuracy_score(y_test, nb_label_prediction))
+    print(classification_roc_auc_score(y_test, nb_label_prediction, proba, 0))
     print("----------------------------kNeighbours------------------------------------------")
-    kn_label_prediction = getPredictionData("kNeighbours", x_train, x_test, y_train, y_test, 5)
+    kn_label_prediction, proba = getPredictionData("kNeighbours", x_train, x_test, y_train, y_test, 5)
     print(confusion_matrix_results(y_test, kn_label_prediction))
     print(classification_report_results(y_test, kn_label_prediction))
     print(classification_accuracy_score(y_test, kn_label_prediction))
+    print(classification_roc_auc_score(y_test, kn_label_prediction, proba, 0))
     print("----------------------------decisionTree------------------------------------------")
-    dt_label_prediction = getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
-    temp = confusion_matrix_results(y_test, dt_label_prediction)
+    dt_label_prediction, proba = getPredictionData("decisionTree", x_train, x_test, y_train, y_test)
+    print(confusion_matrix_results(y_test, dt_label_prediction))
     print(classification_report_results(y_test, dt_label_prediction))
     print(classification_accuracy_score(y_test, dt_label_prediction))
-
+    print(classification_roc_auc_score(y_test, dt_label_prediction, proba, 0))
 
     #print(dt_label_prediction)
     #print(len(dt_label_prediction))
