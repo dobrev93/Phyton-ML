@@ -6,13 +6,15 @@ from data_handler import combinedSampling, underSampling, overSampling, read_dat
 from classifier import getPredictionData
 from evaluation import confusion_matrix_results, classification_report_results, classification_accuracy_score, classification_roc_auc_score
 
+train_url_cancer = '../data/184702-tu-ml-ss-19-breast-cancer/breast-cancer-diagnostic.shuf.lrn.csv'
+train_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.lrn.csv'
+train_url_IS = '../data/Image_Segmentation_data/segmentation.csv'
 
-
-def image_segmentation_test(samplingType, normalizeType, selectBest, kBest=10):
+def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest, kBest=10):
     print("----------------------------Preprocessing------------------------------------------")
     start_preprocessing_time = time.time()
-    train_url_img_seg = '../data/Image_Segmentation_Data/segmentation.data'
-    X,Y = getFeatureLabelData(train_url_img_seg, 0)
+
+    X,Y = getFeatureLabelData(url, classColumn, noID)
     if (samplingType=='over'):
         X_sampled, Y_sampled = overSampling(X, Y)
         x_train, x_test, y_train, y_test = trainTestSplit(X_sampled, Y_sampled)
@@ -30,6 +32,7 @@ def image_segmentation_test(samplingType, normalizeType, selectBest, kBest=10):
         x_test = minMaxScailing(x_test)
     elif (normalizeType=='normal'):
         x_train, x_test= normalizeData(x_train, x_test)
+
     if selectBest:
         x_train, x_test = selectKBest(x_train, y_train, x_test, y_test, kBest)
     preprocessing_time = time.time()
@@ -76,8 +79,7 @@ def main():
     :return:
     """
 
-
-    image_segmentation_test('', '', False)
+measure_data(url = train_url_IS, classColumn = 0, noID = True, samplingType = '', normalizeType = 'minmax', selectBest = True, kBest=1)
 
 
 

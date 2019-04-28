@@ -10,7 +10,7 @@ train_url_cancer = '../data/184702-tu-ml-ss-19-breast-cancer/breast-cancer-diagn
 train_url_amazon = '../data/Amazon_Review_Data/amazon_review_ID.shuf.lrn.csv'
 train_url_IS = '../data/Image_Segmentation_data/segmentation.csv'
 
-def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest, kBest=10):
+def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest, kBest=10, booleanClass=False):
     print("----------------------------Preprocessing------------------------------------------")
     start_preprocessing_time = time.time()
 
@@ -46,7 +46,8 @@ def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest
     print(confusion_matrix_results(y_test, dt_label_prediction))
     print(classification_report_results(y_test, dt_label_prediction))
     print("The accuracy is: ",classification_accuracy_score(y_test, dt_label_prediction))
-    print('The auc_roc score is: ', classification_roc_auc_score(y_test, dt_label_prediction, dt_proba, 0))
+    if booleanClass:
+        print('The auc_roc score is: ', classification_roc_auc_score(y_test, dt_label_prediction, proba, 0))
     print("The prediction time for Decision tree is:", prediction_dt_time-start_prediction_dt_time)
     print("----------------------------end decisionTree------------------------------------------")
 
@@ -57,7 +58,8 @@ def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest
     print(confusion_matrix_results(y_test, nb_label_prediction))
     print(classification_report_results(y_test, nb_label_prediction))
     print("The accuracy is: ", classification_accuracy_score(y_test, nb_label_prediction))
-    print('The auc_roc score is: ', classification_roc_auc_score(y_test, nb_label_prediction, nb_proba, 0))
+    if booleanClass:
+        print('The auc_roc score is: ', classification_roc_auc_score(y_test, nb_label_prediction, proba, 0))
     print("The prediction time for Naive Bayes is:", prediction_bayes_time-start_prediction_bayes_time)
     print("-----------------------End NaiveBayes-----------------------------------------")
 
@@ -68,7 +70,8 @@ def measure_data(url, classColumn, noID, samplingType, normalizeType, selectBest
     print(confusion_matrix_results(y_test, kn_label_prediction))
     print(classification_report_results(y_test, kn_label_prediction))
     print('The accuracy is: ', classification_accuracy_score(y_test, kn_label_prediction))
-    print('The auc_roc score is: ', classification_roc_auc_score(y_test, kn_label_prediction, kn_proba, 0))
+    if booleanClass:
+        print('The auc_roc score is: ', classification_roc_auc_score(y_test, kn_label_prediction, proba, 0))
     print("The prediction time for kNN is:", prediction_knn_time-start_prediction_knn_time)
     print("----------------------------End kNeighbours------------------------------------------")
 
@@ -79,7 +82,7 @@ def main():
     :return:
     """
 
-measure_data(url = train_url_IS, classColumn = 0, noID = False, samplingType = 'over', normalizeType = 'minmax', selectBest = False)
+measure_data(url = train_url_IS, classColumn = 0, noID = True, samplingType = '', normalizeType = 'minmax', selectBest = False, kBest=1, booleanClass=False)
 
 
 
